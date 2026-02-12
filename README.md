@@ -29,9 +29,9 @@ The objective was to assess security configuration compliance, identify STIG vio
 
 <img src="images/VM.jpg" width="900">
 
-<img src="images/VM2.jpg" width="900">
+<img src=images/VM2.jpg width="900">
 
-<img src="images/VM3.jpg" width="900">
+<img src=images/VM3.jpg width="900">
 
 ---
 
@@ -103,59 +103,32 @@ These findings represent **direct violations of DISA STIG controls** and increas
 - Guest account added to the Administrators group
 - Insecure administrator account configuration
 
-<img src="images/guestaccount.jpg" width="600">
+<img src=images/guestaccount.jpg width=600>
 
-<img src="images/guestadministrators.jpg" width="600">
-
-**Recommended Solutions**
-- Disable the Guest account entirely
-- Remove Guest from all privileged groups
-- Enforce least-privilege access
-- Apply strong password policies with expiration and history enforcement
-
----
-
-### 2. Firewall & Network Security
+<img src="(https://github.com/briannameme17/DISA-STIG-Windows-11-Advanced-Network-Scan/blob/main/guestadministrators.jpg)" width="600">
+### 2. Firewall & Network Security (NSG & Host-Based Firewall)
 
 **Issues Identified**
-- Windows Defender Firewall disabled
-- NSG configured to allow unrestricted inbound traffic
-
-<img src="images/FIREWALL.jpg" width="600">
-
-<img src="images/Traffic.jpg" width="900">
+- Azure Network Security Group (NSG) configured with overly permissive inbound rules (allow-all traffic)
+- Windows Defender Firewall disabled across one or more profiles
+- Increased exposure to unauthorized network access and lateral movement
 
 **Recommended Solutions**
-- Enable Windows Defender Firewall for Domain, Private, and Public profiles
-- Restrict inbound NSG rules to required ports only
-- Enforce deny-by-default inbound traffic policies
+- Restrict NSG inbound rules to **only required ports and source IP ranges**
+  - Remove any `Any → Any` allow rules
+  - Implement a **deny-by-default** inbound rule set
+- Limit management access (RDP/WinRM) to trusted IP addresses or private network access
+- Enable **Windows Defender Firewall** for:
+  - Domain Profile
+  - Private Profile
+  - Public Profile
+- Ensure firewall rules align with **DISA STIG-approved configurations**
+- Validate changes through a follow-up authenticated compliance scan
 
----
-
-### 3. Patch & Update Compliance
-
-**Issues Identified**
-- Missing Windows security updates
-- Outdated third-party applications
-
-**Recommended Solutions**
-- Re-enable Windows Update services
-- Apply all pending OS and application patches
-- Establish a recurring patch management cadence
-- Validate remediation through follow-up scans
-
----
-
-### 4. Certificate & Encryption Controls
-
-**Issues Identified**
-- Self-signed or untrusted SSL certificates
-- Weak cryptographic configurations
-
-**Recommended Solutions**
-- Replace self-signed certificates with trusted CA-issued certificates
-- Enforce STIG-approved encryption standards
-- Remove deprecated protocols and cipher suites
+**Compliance Impact**
+- Reduces attack surface and network exposure
+- Aligns network and host-based controls with DISA STIG requirements
+- Improves audit readiness and defense-in-depth posture
 
 ---
 
@@ -182,6 +155,3 @@ This project demonstrates how **STIG-based compliance scanning supports governan
 
 ---
 
-## Disclaimer
-
-This project was conducted in a **controlled lab environment** for educational and portfolio purposes. Systems were intentionally misconfigured to simulate compliance violations.
