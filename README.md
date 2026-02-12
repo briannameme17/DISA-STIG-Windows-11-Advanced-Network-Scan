@@ -62,15 +62,6 @@ An **Advanced Network Scan** template was created in Tenable to support authenti
 
 The scan identified **132 total findings**, largely centered around configuration and policy enforcement gaps.
 
-| Severity | Count |
-|--------|------|
-| Critical | 0 |
-| High | 3 |
-| Medium | 2 |
-| Low | 2 |
-| Informational | 125 |
-| **Total** | **132** |
-
 <img src="images/report.findings.jpg" width="900">
 
 ### Notable Findings
